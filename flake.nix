@@ -20,7 +20,7 @@
       ] (system: function nixpkgs.legacyPackages.${system});
   in rec {
     packages = forAllSystems (pkgs: {
-      unstable = inputs.nightly.packages.${pkgs.system}.neovim.overrideAttrs (old: {
+      nightly = inputs.nightly.packages.${pkgs.system}.neovim.overrideAttrs (old: {
         patches = old.pactches or [] ++ [./PATCH.patch];
       });
 
@@ -28,7 +28,7 @@
         patches = old.pactches or [] ++ [./PATCH.patch]; });
     });
 
-    makeNightlyNeovimConfig = appname: args: makeNeovimConfig appname (args // {package = packages.${args.pkgs.system}.unstable;});
+    makeNightlyNeovimConfig = appname: args: makeNeovimConfig appname (args // {package = packages.${args.pkgs.system}.nightly;});
 
     makeNeovimConfig = appname: {
       pkgs,
