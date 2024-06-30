@@ -61,7 +61,7 @@
             "NIX_ABS_CONFIG"
             src
           ];
-        buildInputs = old.buildInputs ++ buildInputs;
+        buildInputs = old.buildInputs or [] ++ buildInputs;
         doCheck = true;
         nativeCheckInputs = [pkgs.luajitPackages.luacheck];
         checkPhase = ''
