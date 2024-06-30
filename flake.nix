@@ -72,5 +72,17 @@
             -c "source ${./post-check.lua}" || (>&2 cat stderr.txt && exit 1)
         '';
       });
+
+    templates = {
+        stable = {
+            path = ./templates/stable;
+            description = "A simple stable neovim configuration flake";
+        };
+
+        nightly = {
+            path = ./templates/nightly;
+            description = "A simple nightly neovim configuration flake";
+        };
+    };
   };
 }
