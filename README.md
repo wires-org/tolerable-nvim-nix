@@ -23,7 +23,7 @@
 
   nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
-  inputs.tolerable.url = "path:/home/marsh/projects/tolerable-neovim-nix";
+  inputs.tolerable.url = "github:mrshmllow/tolerable-nvim-nix";
   inputs.tolerable.inputs.nixpkgs.follows = "nixpkgs";
 
   # Include if you want nightly neovim...
