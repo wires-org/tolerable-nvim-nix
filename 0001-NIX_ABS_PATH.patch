@@ -1,0 +1,29 @@
+From 468bc015737f31f3e99bbb9594f5a2d5821f7a24 Mon Sep 17 00:00:00 2001
+From: marshmallow <marshycity@gmail.com>
+Date: Tue, 18 Jun 2024 16:12:18 +1000
+Subject: [PATCH] NIX_ABS_CONFIG
+
+---
+ src/nvim/os/stdpaths.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/nvim/os/stdpaths.c b/src/nvim/os/stdpaths.c
+index e4435bc..985cbe3 100644
+--- a/src/nvim/os/stdpaths.c
++++ b/src/nvim/os/stdpaths.c
+@@ -178,6 +178,12 @@ char *stdpaths_get_xdg_var(const XDGVarType idx)
+     ret = xdg_remove_duplicate(ret, ENV_SEPSTR);
+   }
+ 
++  char *nix = os_getenv("NIX_ABS_CONFIG");
++
++  if (idx == kXDGConfigHome && nix != NULL) {
++    ret = xstrdup(nix);
++  }
++
+   return ret;
+ }
+ 
+-- 
+2.44.0
+
