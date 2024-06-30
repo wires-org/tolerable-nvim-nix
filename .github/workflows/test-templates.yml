@@ -10,6 +10,9 @@ jobs:
     - uses: cachix/install-nix-action@v27
       with:
         nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          trusted-public-keys = wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+        substituters = https://wires.cachix.org https://cache.nixos.org/
     - name: Build
       working-directory: ./templates/nightly
       run: nix build .#neovim --override-input tolerable ../../.
