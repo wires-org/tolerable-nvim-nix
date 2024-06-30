@@ -36,7 +36,7 @@
       config,
       package ? null,
       buildInputs ? [],
-      path,
+      src,
       ...
     }: let
       _config = pkgs.neovimUtils.makeNeovimConfig (config // {wrapRc = false;});
@@ -59,13 +59,13 @@
             appname
             "--set"
             "NIX_ABS_CONFIG"
-            path
+            src
           ];
         buildInputs = old.buildInputs ++ buildInputs;
         doCheck = true;
         nativeCheckInputs = [pkgs.luajitPackages.luacheck];
         checkPhase = ''
-          luacheck ${path}/${appname} --only 0
+          luacheck ${src}/${appname} --only 0
 
           TOLERABLE_CHECK=1 $out/bin/nvim \
             --headless \
