@@ -1,16 +1,21 @@
 # tolerable-nvim-nix
 
-Patches neovim to support absolute configuration paths, and exposes a nix function to create a nix package with your configuration baked in.
+Make your `~/.config/nvim/` portable with nix! This flake patches neovim to support absolute configuration paths, and exposes a nix function to create a package with your configuration baked in.
+
+Read `:h config` for how to configure neovim.
 
 ## Getting Started
 
-Add `https://wires.cachix.org` & `wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk=` to your `nix.conf` file to prevent building neovim from scratch.
+> [!TIP]
+> Add `https://wires.cachix.org` & `wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk=` to your `nix.conf` file to prevent building neovim from scratch.
 
 ```sh
 nix flake init -t github:mrshmllow/tolerable-nvim-nix#stable
 
 nix flake init -t github:mrshmllow/tolerable-nvim-nix#nightly
 ```
+
+You can now alter the `example` directory and use it exactly as you would your normal `~/.config/nvim/`.
 
 ## Example
 
