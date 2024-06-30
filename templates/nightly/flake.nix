@@ -4,6 +4,9 @@
   inputs.tolerable.url = "github:mrshmllow/tolerable-nvim-nix";
   inputs.tolerable.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.nightly.url = "github:nix-community/neovim-nightly-overlay";
+  inputs.tolerable.inputs.nightly.follows = "nightly";
+
   outputs = {
     self,
     nixpkgs,
