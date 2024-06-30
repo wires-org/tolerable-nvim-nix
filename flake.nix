@@ -73,13 +73,23 @@
         '';
       });
 
-    templates = {
+    templates = let 
+        welcomeText = ''
+          Rename the `example/` directory, and references to it in `flake.nix`, to something unique for your neovim configuration.
+
+          Read more about configuring neovim with `:h config`.
+
+          Run your neovim configuration with `nix run .#neovim`.
+        '';
+    in{
         stable = {
+            inherit welcomeText;
             path = ./templates/stable;
             description = "A simple stable neovim configuration flake";
         };
 
         nightly = {
+            inherit welcomeText;
             path = ./templates/nightly;
             description = "A simple nightly neovim configuration flake";
         };
