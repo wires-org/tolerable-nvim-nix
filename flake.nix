@@ -21,12 +21,11 @@
   in rec {
     packages = forAllSystems (pkgs: {
       unstable = inputs.nightly.packages.${pkgs.system}.neovim.overrideAttrs (old: {
-        patches = old.pactches or [] ++ [./UNSTABLE.patch];
+        patches = old.pactches or [] ++ [./PATCH.patch];
       });
 
-      stable = pkgs.neovim.overrideAttrs (old: {
-        patches = old.pactches or [] ++ [./STABLE.patch];
-      });
+      stable = pkgs.neovim-unwrapped.overrideAttrs (old: {
+        patches = old.pactches or [] ++ [./PATCH.patch]; });
     });
 
     makeNightlyNeovimConfig = appname: args: makeNeovimConfig appname (args // {package = packages.${args.pkgs.system}.unstable;});
