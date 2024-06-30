@@ -21,11 +21,11 @@
   in rec {
     packages = forAllSystems (pkgs: {
       unstable = inputs.nightly.packages.${pkgs.system}.neovim.overrideAttrs (old: {
-        patches = old.pactches or [] ++ [./0001-NIX_ABS_PATH.patch];
+        patches = old.pactches or [] ++ [./UNSTABLE.patch];
       });
 
       stable = pkgs.neovim.overrideAttrs (old: {
-        patches = old.pactches or [] ++ [./0001-NIX_ABS_PATH.patch];
+        patches = old.pactches or [] ++ [./STABLE.patch];
       });
     });
 
