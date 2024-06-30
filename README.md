@@ -1,6 +1,20 @@
 # tolerable-nvim-nix
 
+Patches neovim to support absolute configuration paths, and exposes a nix function to create a nix package with your configuration baked in.
+
+## Getting Started
+
+Add `https://wires.cachix.org` & `wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk=` to your `nix.conf` file to prevent building neovim from scratch.
+
+```sh
+nix flake init -t github:mrshmllow/tolerable-nvim-nix#stable
+
+nix flake init -t github:mrshmllow/tolerable-nvim-nix#nightly
+```
+
 ## Example
+
+Your configuration directory structure should look something like this:
 
 ```
 ~/my/neovim/config/
@@ -17,51 +31,26 @@
 └── flake.nix
 ```
 
+You should change MY_APPNAME to something unique for your neovim configuration. This prevents any collisions with other neovim configurations on systems.
+
 ```nix
-{
-  description = "my neovim config flake!";
-
-  nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
-
-  inputs.tolerable.url = "github:mrshmllow/tolerable-nvim-nix";
-  inputs.tolerable.inputs.nixpkgs.follows = "nixpkgs";
-
-  # Include if you want nightly neovim...
-  inputs.nightly.url = "github:nix-community/neovim-nightly-overlay";
-  inputs.tolerable.inputs.nightly.follows = "nightly";
-
-  outputs = {
-    self,
-    nixpkgs,
-  } @ inputs: let
-    forAllSystems = function:
-      nixpkgs.lib.genAttrs [
-        "x86_64-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ] (system: function nixpkgs.legacyPackages.${system});
-  in {
-    packages = forAllSystems (pkgs: {
-      # use makeNightlyNeovimConfig for nightly neovim
-      neovim = inputs.tolerable.makeNeovimConfig "MY_APPNAME" {
-        inherit pkgs;
-        src = pkgs.lib.fileset.toSource {
-          root = ./.;
-          fileset = ./MY_APPNAME;
-        };
-        buildInputs = [
-          # runtime accessible packages
-          # ... formatters / lsp servers
-        ];
-        config = {
-          # passed to pkgs.neovimUtils.makeNeovimConfig
-          plugins = with pkgs.vimPlugins; [
-            # ...
-          ];
-        };
-      };
-    });
+# use makeNightlyNeovimConfig for nightly neovim
+neovim = inputs.tolerable.makeNeovimConfig "MY_APPNAME" {
+  inherit pkgs;
+  # Use a fileset to prevent rebuilding neovim when files irrelevant to your configuration change.
+  src = pkgs.lib.fileset.toSource {
+    root = ./.;
+    fileset = ./MY_APPNAME;
   };
-}
+  buildInputs = [
+    # runtime accessible packages
+    # ... formatters / lsp servers
+  ];
+  # passed to pkgs.neovimUtils.makeNeovimConfig
+  config = {
+    plugins = with pkgs.vimPlugins; [
+      # ...
+    ];
+  };
+};
 ```
