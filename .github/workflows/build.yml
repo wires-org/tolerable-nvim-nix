@@ -1,9 +1,9 @@
-name: "Build"
+name: "Test"
 on:
   pull_request:
   push:
 jobs:
-  stable:
+  build-stable:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -15,7 +15,7 @@ jobs:
         name: wires
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix build .#stable
-  nightly:
+  build-nightly:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -27,3 +27,32 @@ jobs:
         name: wires
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix build .#nightly
+  nightly-template:
+    runs-on: ubuntu-latest
+    needs: build-nightly
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          trusted-public-keys = wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          substituters = https://wires.cachix.org https://cache.nixos.org/
+    - name: Build
+      working-directory: ./templates/nightly
+      run: nix build .#neovim --override-input tolerable ../../.
+  stable-template:
+    runs-on: ubuntu-latest
+    needs: build-stable
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          trusted-public-keys = wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          substituters = https://wires.cachix.org https://cache.nixos.org/
+    - name: Build
+      working-directory: ./templates/stable
+      run: nix build .#neovim --override-input tolerable ../../.
+
