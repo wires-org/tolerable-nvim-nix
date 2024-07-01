@@ -10,9 +10,9 @@ Read `:h config` for how to configure neovim.
 > Add `https://wires.cachix.org` & `wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk=` to your `nix.conf` file to prevent building neovim from scratch.
 
 ```sh
-nix flake init -t github:mrshmllow/tolerable-nvim-nix#stable
+nix flake init -t github:wires-org/tolerable-nvim-nix#stable
 
-nix flake init -t github:mrshmllow/tolerable-nvim-nix#nightly
+nix flake init -t github:wires-org/tolerable-nvim-nix#nightly
 ```
 
 You can now alter the `example` directory and use it exactly as you would your normal `~/.config/nvim/`.
