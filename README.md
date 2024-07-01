@@ -1,5 +1,7 @@
 # tolerable-nvim-nix
 
+![Templates Test Workflow Status](https://img.shields.io/github/actions/workflow/status/wires-org/tolerable-nvim-nix/build.yml?style=for-the-badge&label=Templates) ![Tracking Nightly Workflow Status](https://img.shields.io/github/actions/workflow/status/wires-org/tolerable-nvim-nix/update-flake-lock.yml?style=for-the-badge&label=Tracking%20Nightly) ![Static Badge](https://img.shields.io/badge/nix-text?style=for-the-badge&logo=nixos&label=built%20with)
+
 Make your `~/.config/nvim/` portable with nix! This flake patches neovim to support absolute configuration paths, and exposes a nix function to create a package with your configuration baked in.
 
 Read `:h config` for how to configure neovim.
