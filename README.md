@@ -4,6 +4,8 @@ Make your `~/.config/nvim/` portable with nix! This flake patches neovim to supp
 
 Read `:h config` for how to configure neovim.
 
+Additionally, this flake adds a few checks to your config. The derivation will fail to build if any lua syntax errors are found or any `vim.notify(..., vim.log.levels.ERROR)`'s are thrown. Change `doCheck` to disable this.
+
 ## Getting Started
 
 > [!TIP]
