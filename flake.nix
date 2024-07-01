@@ -35,6 +35,7 @@
       config,
       package ? null,
       buildInputs ? [],
+      doCheck ? true,
       src,
       ...
     }: let
@@ -61,7 +62,7 @@
             src
           ];
         buildInputs = old.buildInputs or [] ++ buildInputs;
-        doCheck = true;
+        inherit doCheck;
         nativeCheckInputs = [pkgs.luajitPackages.luacheck];
         checkPhase = ''
           luacheck ${src}/${appname} --only 0
