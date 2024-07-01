@@ -5,19 +5,23 @@ on:
     - cron: '0 0 * * *' # runs nightly
 
 jobs:
-  lockfile:
+  update-lock:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Install Nix
-        # kms
-        uses: DeterminateSystems/nix-installer-action@main
-      - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
-        with:
-          pr-title: "Update flake.lock" # Title of PR to be created
-          pr-labels: |                  # Labels to be set on the PR
-            dependencies
-            automated
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    - run: nix flake update --commit-lock-file
+    - name: Test builds against new lock
+      run: |
+        nix build .#stable
+        nix build .#nightly
+    - name: Push changes
+      run: |
+        git push
 
