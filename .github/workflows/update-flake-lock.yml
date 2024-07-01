@@ -15,6 +15,10 @@ jobs:
         extra_nix_config: |
           trusted-public-keys = wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
           substituters = https://wires.cachix.org https://cache.nixos.org/
+    - uses: cachix/cachix-action@v15
+      with:
+        name: wires
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Configure git
       run: |
         git config user.name "github-actions[bot]"
