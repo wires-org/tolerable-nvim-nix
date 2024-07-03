@@ -54,10 +54,6 @@ neovim = inputs.tolerable.makeNeovimConfig "MY_APPNAME" {
     root = ./.;
     fileset = ./MY_APPNAME;
   };
-  buildInputs = [
-    # runtime accessible packages
-    # ... formatters / lsp servers
-  ];
   # passed to pkgs.neovimUtils.makeNeovimConfig
   config = {
     plugins = with pkgs.vimPlugins; [

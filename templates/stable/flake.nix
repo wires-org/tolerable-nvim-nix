@@ -24,7 +24,6 @@
           root = ./.;
           fileset = ./example;
         };
-        buildInputs = [ ];
         config = {
           plugins = with pkgs.vimPlugins; [
             catppuccin-nvim
