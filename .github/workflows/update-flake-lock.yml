@@ -28,6 +28,12 @@ jobs:
       run: |
         nix build .#stable
         nix build .#nightly
+    - name: Build Stable Template
+      working-directory: ./templates/stable
+      run: nix build .#neovim --override-input tolerable ../../.
+    - name: Build Nightly Template
+      working-directory: ./templates/nightly
+      run: nix build .#neovim --override-input tolerable ../../.
     - name: Push changes
       run: |
         git push
