@@ -19,7 +19,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix build .#${{ matrix.package }}
 
-  nightly-template:
+  template:
     runs-on: ubuntu-latest
     needs: build
     strategy:
