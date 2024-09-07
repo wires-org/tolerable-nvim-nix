@@ -10,9 +10,6 @@ Additionally, this flake adds a few checks to your config. The derivation will f
 
 ## Getting Started
 
-> [!TIP]
-> Add `https://wires.cachix.org` & `wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk=` to your `nix.conf` file to prevent building neovim from scratch.
-
 ```sh
 nix flake init -t github:wires-org/tolerable-nvim-nix#stable
 
