@@ -32,6 +32,9 @@
             catppuccin-nvim
           ];
         };
+        path = with pkgs; [
+          lua-language-server
+        ];
       };
     });
   };

@@ -37,6 +37,7 @@
       package ? null,
       buildInputs ? [],
       doCheck ? true,
+      path ? [],
       src,
       ...
     }: let
@@ -61,6 +62,10 @@
             "--set"
             "NIX_ABS_CONFIG"
             src
+            "--prefix"
+            "PATH"
+            ":"
+            (pkgs.lib.makeBinPath path)
           ];
         buildInputs = old.buildInputs or [] ++ buildInputs;
         inherit doCheck;
