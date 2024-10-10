@@ -5,7 +5,7 @@
 Make your `~/.config/nvim/` portable with nix! This flake patches neovim to support absolute configuration paths, and exposes a nix function to create a package with your configuration baked in.
 
 > [!TIP]
-> lazy.nvim works for the most part, however mason will not work under nix. Remove the part of your config that bootstraps lazy.nvim and add `pkgs.vimPlugins.lazy-nvim` to the list of plugins to keep using lazy
+> lazy.nvim / LazyVim works for the most part, however mason will not work under nix. Remove the part of your config that bootstraps lazy.nvim and add `pkgs.vimPlugins.lazy-nvim` to the list of plugins to keep using lazy
 
 Read `:h config` for how to configure neovim.
 
