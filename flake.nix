@@ -25,7 +25,8 @@
       });
 
       stable = pkgs.neovim-unwrapped.overrideAttrs (old: {
-        patches = old.pactches or [] ++ [./PATCH.patch]; });
+        patches = old.pactches or [] ++ [./PATCH.patch];
+      });
     });
 
     makeNightlyNeovimConfig = appname: args: makeNeovimConfig appname (args // {package = packages.${args.pkgs.system}.nightly;});
@@ -74,26 +75,26 @@
         '';
       });
 
-    templates = let 
-        welcomeText = ''
-          Rename the `example/` directory, and references to it in `flake.nix`, to something unique for your neovim configuration.
+    templates = let
+      welcomeText = ''
+        Rename the `example/` directory, and references to it in `flake.nix`, to something unique for your neovim configuration.
 
-          Read more about configuring neovim with `:h config`.
+        Read more about configuring neovim with `:h config`.
 
-          Run your neovim configuration with `nix run .#neovim`.
-        '';
-    in{
-        stable = {
-            inherit welcomeText;
-            path = ./templates/stable;
-            description = "A simple stable neovim configuration flake";
-        };
+        Run your neovim configuration with `nix run .#neovim`.
+      '';
+    in {
+      stable = {
+        inherit welcomeText;
+        path = ./templates/stable;
+        description = "A simple stable neovim configuration flake";
+      };
 
-        nightly = {
-            inherit welcomeText;
-            path = ./templates/nightly;
-            description = "A simple nightly neovim configuration flake";
-        };
+      nightly = {
+        inherit welcomeText;
+        path = ./templates/nightly;
+        description = "A simple nightly neovim configuration flake";
+      };
     };
   };
 }
