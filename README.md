@@ -61,15 +61,15 @@ neovim = inputs.tolerable.makeNeovimConfig "MY_APPNAME" {
       nvim-lspconfig
       # ...
     ];
-    # add packages to the path that will be available to neovim
-    # (aka, LSP's)
-    # some packages have different binary names, and lspconfig may have to be adjusted
-    path = with pkgs; [
-      lua-language-server
-      nil
-      prettierd
-      # ...
-    ];
   };
+  # add packages to the path that will be available to neovim
+  # (aka, LSP's)
+  # some packages have different binary names, and lspconfig may have to be adjusted
+  path = with pkgs; [
+    lua-language-server
+    nil
+    prettierd
+    # ...
+  ];
 };
 ```
