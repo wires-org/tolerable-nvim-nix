@@ -73,3 +73,18 @@ neovim = inputs.tolerable.makeNeovimConfig "MY_APPNAME" {
   ];
 };
 ```
+
+## Development Process
+
+Building a config with `testing = true` will allow you to rapidly test 
+your config without waiting for nix to finish building.
+
+The templates include an example:
+
+```nix
+nix build .#testing --impure
+
+./result/bin/nvim
+```
+
+Re-run the binary to refresh just as if your config was in `~/.config/nvim`.

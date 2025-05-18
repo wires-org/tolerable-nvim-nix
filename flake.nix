@@ -47,6 +47,7 @@
           buildInputs ? [ ],
           doCheck ? true,
           path ? [ ],
+          testing ? false,
           src,
           ...
         }:
@@ -62,7 +63,21 @@
             appname
             "--set"
             "NIX_ABS_CONFIG"
-            src
+            (
+              if testing then
+                (
+                  if builtins ? currentSystem then
+                    builtins.getEnv "PWD"
+                  else
+                    builtins.throw ''
+                      Building a tolerable-nvim-nix config with `testing = true`, but building in a pure mode!
+
+                      Try again with --impure.
+                    ''
+                )
+              else
+                src
+            )
             "--prefix"
             "PATH"
             ":"
