@@ -24,7 +24,8 @@ jobs:
     needs: build
     strategy:
       matrix:
-        package: [stable, nightly]
+        template: [stable, nightly]
+        package: [neovim, testing]
     steps:
     - uses: actions/checkout@v4
     - uses: cachix/install-nix-action@v27
@@ -34,5 +35,5 @@ jobs:
           trusted-public-keys = wires.cachix.org-1:7XQoG91Bh+Aj01mAJi77Ui5AYyM1uEyV0h1wOomqjpk= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
           substituters = https://wires.cachix.org https://cache.nixos.org/
     - name: Build
-      working-directory: ./templates/${{ matrix.package }}
-      run: nix build .#neovim --override-input tolerable ../../.
+      working-directory: ./templates/${{ matrix.template }}
+      run: nix build .#${{ matrix.package }} --impure --override-input tolerable ../../.
